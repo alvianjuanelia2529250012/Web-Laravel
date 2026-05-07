@@ -1,3 +1,7 @@
+@extends('main')
+@section('title','Fakultas')
+@section('content')
+    
 <h1>data Prodi</h1>
 <table border="1" cellpadding="10">
 <tr> 
@@ -6,6 +10,7 @@
     <th>singkatan  </th>
     <th>kaprodi</th>
     <th>fakultas</th>
+    <th>Singkatan</th>
 </tr>
 @foreach ($prodis as $key=>$prodi)
     <tr>
@@ -14,7 +19,9 @@
         <td>{{$prodi->Singkatan}}</td>
         <td>{{$prodi->Kaprodi}}</td>
         <td>{{$prodi->fakultas->nama_fakultas ?? '-'}}</td>
+         <td>{{$prodi->fakultas->singkatan ?? '-'}}</td>
     </tr>
 @endforeach
    
 </table>
+@endsection
