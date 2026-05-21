@@ -22,15 +22,20 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        //
+        return view('periode.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $input=$request->validate([
+            'Tahun_Akademik'=>'required',
+            'Semester'=>'required'
+        ]);
+        Periode::create($input);
+        return redirect()->route('periodes.index');
     }
 
     /**
@@ -44,17 +49,23 @@ class PeriodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Periode $periode)
+    public function edit($periode)
     {
-        //
+         $periode=Periode::find($periode);
+        return view('periode.edit',compact('periode'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Periode $periode)
+    public function update(Request $request, $periode)
     {
-        //
+         $input=$request->validate([
+            'Tahun_Akademik'=>'required|unique:periodes,Tahun_Akademik,'.$periode,
+            'Semester'=>'required'
+        ]);
+        Periode::Where('id',$periode->id)->update($input);
+        return redirect()->route('periodes.index');
     }
 
     /**

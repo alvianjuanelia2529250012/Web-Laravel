@@ -23,7 +23,7 @@ class FakultasController extends Controller
      */
     public function create()
     {
-        //
+        return view('fakultas.create');
     }
 
     /**
@@ -31,7 +31,13 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $input=$request->validate([
+            'nama_fakultas'=>'required|unique:fakultas',
+            'singkatan'=>'required'
+        ]);
+        Fakultas::create($input);
+        return redirect()->route('Fakultas.index');
     }
 
     /**
@@ -45,24 +51,32 @@ class FakultasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fakultas $fakultas)
+    public function edit($fakultas)
     {
-        //
+        $fakultas=Fakultas::find($fakultas);
+        return view('Fakultas.edit',compact('fakultas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fakultas $fakultas)
+    public function update(Request $request,$fakultas)
     {
-        //
+        $input=$request->validate([
+            'nama_fakultas'=>'required|unique:fakultas,nama_fakultas,'.$fakultas,
+            'singkatan'=>'required'
+        ]);
+        Fakultas::Where('id',$fakultas)->update($input);
+        return redirect()->route('Fakultas.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fakultas $fakultas)
+    public function destroy( $fakultas)
     {
-        //
+        $fakultas=Fakultas::find($fakultas,'id');
+        $fakultas->delete();
+        return redirect()->route('Fakultas.index')->with('success', 'Fakultas a.n. '. $fakultas->nama.' berhasil dihapus.');
     }
 }

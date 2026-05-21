@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fakultas;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,9 @@ class ProdiController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    {   
+        $fakultas = Fakultas::all();
+        return view('prodis.create',compact('fakultas'));
     }
 
     /**
@@ -30,7 +32,14 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $input=$request->validate([
+            'nama_prodi'=>'required',
+            'Singkatan'=>'required',
+            'Kaprodi'=>'required',
+            'fakultas_id'=>'required'
+        ]);
+        Prodi::create($input);
+        return redirect()->route('prodis.index');
     }
 
     /**
@@ -44,9 +53,11 @@ class ProdiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Prodi $prodi)
+    public function edit($prodi)
     {
-        //
+        $prodi=Prodi::find($prodi);
+        $fakultas = Fakultas::all();
+        return view('prodis.edit',compact('prodi', 'fakultas'));
     }
 
     /**
@@ -54,7 +65,14 @@ class ProdiController extends Controller
      */
     public function update(Request $request, Prodi $prodi)
     {
-        //
+            $input=$request->validate([
+                'nama_prodi'=>'required',
+                'Singkatan'=>'required',
+                'Kaprodi'=>'required',
+                'fakultas_id'=>'required'
+            ]);
+            Prodi::Where('id',$prodi->id)->update($input);
+            return redirect()->route('prodis.index');
     }
 
     /**
