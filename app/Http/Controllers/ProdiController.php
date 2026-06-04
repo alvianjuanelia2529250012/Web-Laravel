@@ -80,6 +80,8 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        $prodi=Prodi::find($prodi->id);
+        $prodi->delete();
+        return redirect()->route('prodis.index');
     }
 }

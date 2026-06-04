@@ -77,6 +77,6 @@ class FakultasController extends Controller
     {
         $fakultas=Fakultas::find($fakultas,'id');
         $fakultas->delete();
-        return redirect()->route('Fakultas.index')->with('success', 'Fakultas a.n. '. $fakultas->nama.' berhasil dihapus.');
+        return redirect()->route('Fakultas.index');
     }
 }

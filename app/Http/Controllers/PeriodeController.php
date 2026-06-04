@@ -73,6 +73,8 @@ class PeriodeController extends Controller
      */
     public function destroy(Periode $periode)
     {
-        //
+        $periode=Periode::find($periode->id);
+        $periode->delete();
+        return redirect()->route('periodes.index');
     }
 }

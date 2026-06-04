@@ -270,7 +270,17 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-outline-secondary">Profile</a>
-                  <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                  <!-- Authentication -->
+                  <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                      @csrf
+
+                      <x-dropdown-link :href="route('logout')"
+                              onclick="event.preventDefault();
+                                          this.closest('form').submit();"
+                                          class="btn btn-outline-danger float-end">
+                          {{ __('Log Out') }}
+                      </x-dropdown-link>
+                  </form>
                 </li>
                 <!--end::Menu Footer-->
               </ul>
@@ -315,50 +325,33 @@
               id="navigation"
             >
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Dashboard
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                  <i class="nav-icon bi bi-palette"></i>
+                  <p>dashboard</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../index.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../index2.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../index3.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v3</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item">
-                <a href="{{route('periodes.index')}}" class="nav-link">
+                <a href="{{ route('periodes.index') }}" class="nav-link">
                   <i class="nav-icon bi bi-palette"></i>
                   <p>Periode</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('Fakultas.index')}}" class="nav-link">
+                <a href="{{ route('fakultas.index') }}" class="nav-link">
                   <i class="nav-icon bi bi-palette"></i>
                   <p>Fakultas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('prodis.index')}}" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
-                  <p>prodi</p>
+                <a href="{{ route('prodis.index') }}" class="nav-link">
+                  <i class="nav-icon bi bi-bank"></i>
+                  <p>Prodi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('mahasiswas.index') }}" class="nav-link">
+                  <i class="nav-icon bi bi-people"></i>
+                  <p>Mahasiswa</p>
                 </a>
               </li>
             </ul>
